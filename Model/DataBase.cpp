@@ -15,6 +15,9 @@ std::vector<Department> DataBase::getDepartment()
         XMLNode *employmentNode = departmentNode->FirstChild();
         employmentNode = employmentNode->FirstChild();
 
+        if (employmentNode == nullptr)
+            return depList;
+
         do{
             Employment empl;
 

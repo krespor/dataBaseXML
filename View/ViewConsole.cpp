@@ -31,7 +31,6 @@ void ViewConsole::dialog()
         cout << "Enter:";
         cin >> response;
 
-
         switch (response)
         {
             case '1':
@@ -88,6 +87,7 @@ void ViewConsole::addData()
 {
     cout << "[1] - employment" << endl << "[2] - department" << endl << "Enter:";
     char response;
+    cin >> response;
 
     if (response == '1')
     {
@@ -113,10 +113,13 @@ void ViewConsole::addData()
         controller.addEmployment(department, surname, name, middleName, function, salary);
     } else if (response == '2')
     {
-
+        string name;
+        cout << "name:";
+        cin >> name;
+        controller.addDepartment(name);
     } else
     {
-
+        cout << "ERROR" << endl;
     }
 
 }
