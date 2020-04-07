@@ -2,17 +2,7 @@
 
 ViewConsole::ViewConsole()
 {
-    dialog();
-    //controller.addDepartment("!!TEST!!");
-    //controller.addEmployment("!!TEST!!", "1surname1", "2name2", "2middleName2", "3function3", "999");
-    //controller.addEmployment("!!TEST!!", "83974", "888q2", "sdkhf", "888", "000");
-    //controller.commit();
-    /*if (controller.addEmployment("!!TEST!!", "1surname1", "2name2", "2middleName2", "3function3", "999"))
-    {
-        //showData();
-        controller.commit();
-    }*/
-
+    //dialog();
 }
 
 void ViewConsole::dialog()
@@ -69,16 +59,14 @@ void ViewConsole::dialog()
 
 void ViewConsole::showData()
 {
-    std::vector<Department> departments = controller.getDepartments();
-
-    for (auto &dep: departments)
+    for (auto &d : controller.getDepartments())
     {
-        cout << dep.name << endl;
-        for (auto &empl: dep.employments)
+        cout << d.name << endl;
+        for (auto &e : controller.getEmployment(d.name))
         {
-            cout << "L_" << empl.fullName << endl;
-            cout << "| L_" << empl.function << endl;
-            cout << "| L_" << empl.salary << endl;
+            cout << "L_" << e.fullName << endl;
+            cout << "| L_" << e.function << endl;
+            cout << "| L_" << e.salary << endl;
         }
     }
 }

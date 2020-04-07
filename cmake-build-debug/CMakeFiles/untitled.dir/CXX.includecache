@@ -6,9 +6,9 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/1/CLionProjects/dataBaseXML/Model/DataBase.cpp
-DataBase.h
-C:/Users/1/CLionProjects/dataBaseXML/Model/DataBase.h
+C:/Users/1/CLionProjects/dataBaseXML/Controller/Controller.h
+../Model/Model.h
+C:/Users/1/CLionProjects/dataBaseXML/Model/Model.h
 
 C:/Users/1/CLionProjects/dataBaseXML/Model/DataBase.h
 IDataBase.h
@@ -21,6 +21,18 @@ vector
 -
 iostream
 -
+
+C:/Users/1/CLionProjects/dataBaseXML/Model/Model.h
+DataBase.h
+C:/Users/1/CLionProjects/dataBaseXML/Model/DataBase.h
+
+C:/Users/1/CLionProjects/dataBaseXML/View/ViewConsole.cpp
+ViewConsole.h
+C:/Users/1/CLionProjects/dataBaseXML/View/ViewConsole.h
+
+C:/Users/1/CLionProjects/dataBaseXML/View/ViewConsole.h
+../Controller/Controller.h
+C:/Users/1/CLionProjects/dataBaseXML/Controller/Controller.h
 
 C:/Users/1/CLionProjects/dataBaseXML/tinyxml2.h
 ctype.h

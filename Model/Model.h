@@ -10,7 +10,7 @@ private:
 
 public:
     Model();
-    std::vector<Department> getDepartments();
+    //std::vector<Department> getDepartments();
     bool addEmployment(std::string department,
             std::string surname,
             std::string name,
@@ -19,6 +19,8 @@ public:
             std::string salary);
 
     void addDepartment(std::string name);
+    std::vector<Employment> getEmployment(std::string department);
+    std::vector<Department> getDepartments();
     void commit();
 };
 

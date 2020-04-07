@@ -1,53 +1,5 @@
 #include "DataBase.h"
 
-std::vector<Department> DataBase::getDepartment()
-{
-    XMLElement* root = doc.FirstChildElement("departments");
-    XMLNode *departmentNode = root->FirstChild();
-
-    std::vector<Department> depList;
-
-    do
-    {
-        Department dep;
-        dep.name = departmentNode->ToElement()->Attribute("name");
-
-        XMLNode *employmentNode = departmentNode->FirstChild();
-        employmentNode = employmentNode->FirstChild();
-
-        if (employmentNode == nullptr)
-            return depList;
-
-        do{
-            Employment empl;
-
-            XMLNode *surname = employmentNode->FirstChild();
-            XMLNode *name = surname->NextSibling();
-            XMLNode *middleName = name->NextSibling();
-            XMLNode *function = middleName->NextSibling();
-            XMLNode *salary = function->NextSibling();
-
-            empl.fullName = surname->ToElement()->GetText();
-            empl.fullName += " ";
-            empl.fullName += name->ToElement()->GetText();
-            empl.fullName += " ";
-            empl.fullName += middleName->ToElement()->GetText();
-
-            empl.function = function->ToElement()->GetText();
-            std::string strSalary(salary->ToElement()->GetText());
-            empl.salary = std::stoi(strSalary);
-
-            dep.employments.push_back(empl);
-
-        } while (employmentNode = employmentNode->NextSibling(), employmentNode != nullptr);
-
-        depList.push_back(dep);
-
-    } while (departmentNode = departmentNode->NextSibling(), departmentNode != nullptr);
-
-    return depList;
-}
-
 DataBase::DataBase(std::string path)
 {
     this->path = path;
@@ -77,7 +29,7 @@ bool DataBase::addEmployment(std::string department, std::string surname,
     XMLElement* root = doc.FirstChildElement("departments");
     XMLNode *departmentNode = root->FirstChild();
 
-    do
+    while (true)
     {
         if (departmentNode == nullptr)
         {
@@ -111,7 +63,7 @@ bool DataBase::addEmployment(std::string department, std::string surname,
             return 1;
         }
         departmentNode = departmentNode->NextSibling();
-    } while (true);
+    }
 }
 
 void DataBase::commit()
@@ -129,4 +81,68 @@ void DataBase::addDepartment(std::string name)
     newDepartment->InsertEndChild(doc.NewElement("employments"));
 
     root->InsertEndChild(newDepartment);
+}
+
+std::vector<Employment> DataBase::getEmployment(std::string department)
+{
+    XMLElement* root = doc.FirstChildElement("departments");
+    XMLNode *departmentNode = root->FirstChild();
+
+    std::vector<Employment> listEmpl;
+
+    while (departmentNode != nullptr)
+    {
+        if (departmentNode->ToElement()->Attribute("name") == department)
+        {
+            XMLNode *employmentNode = departmentNode->FirstChild();
+            employmentNode = employmentNode->FirstChild();
+
+            while (employmentNode != nullptr)
+            {
+                Employment empl;
+
+                XMLNode *surname = employmentNode->FirstChild();
+                XMLNode *name = surname->NextSibling();
+                XMLNode *middleName = name->NextSibling();
+                XMLNode *function = middleName->NextSibling();
+                XMLNode *salary = function->NextSibling();
+
+                empl.fullName = surname->ToElement()->GetText();
+                empl.fullName += " ";
+                empl.fullName += name->ToElement()->GetText();
+                empl.fullName += " ";
+                empl.fullName += middleName->ToElement()->GetText();
+
+                empl.function = function->ToElement()->GetText();
+                std::string strSalary(salary->ToElement()->GetText());
+                empl.salary = std::stoi(strSalary);
+
+                listEmpl.push_back(empl);
+
+                employmentNode = employmentNode->NextSibling();
+            }
+            break;
+        }
+        departmentNode = departmentNode->NextSibling();
+    }
+
+    return listEmpl;
+}
+
+std::vector<Department> DataBase::getDepartments()
+{
+    std::vector<Department> listDep;
+
+    XMLElement* root = doc.FirstChildElement("departments");
+    XMLNode *departmentNode = root->FirstChild();
+
+    while (departmentNode != nullptr)
+    {
+        Department dep;
+        dep.name = departmentNode->ToElement()->Attribute("name");
+        listDep.push_back(dep);
+        departmentNode = departmentNode->NextSibling();
+    }
+
+    return listDep;
 }

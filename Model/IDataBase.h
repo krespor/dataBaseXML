@@ -22,7 +22,6 @@ struct Department
 class IDataBase
 {
 public:
-    virtual std::vector<Department> getDepartment() = 0;
     virtual bool addEmployment(std::string department,
             std::string surname,
             std::string name,
@@ -31,6 +30,8 @@ public:
             std::string salary) = 0;
 
     virtual void addDepartment(std::string name) = 0;
+    virtual std::vector<Employment> getEmployment(std::string department) = 0;
+    virtual std::vector<Department> getDepartments() = 0;
 
     virtual void commit() = 0;
 };
